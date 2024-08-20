@@ -16,14 +16,16 @@
     background:rgba(0,0,0 0.5);
     position: fixed;
     display: flex;
+    border: 1px solid rgb(47, 209, 209);
 }
 .dialog__content{
     margin: auto;
-    background:white;
+    background:none;
     border-radius: 12px;
     min-height: 50px;
     max-height: 300px;
     padding: 20px;
+    border: 1px solid rgb(47, 209, 209);
 
 }
 </style>

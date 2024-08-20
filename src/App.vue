@@ -3,29 +3,32 @@
   
   <h1>Страница с постами</h1>
   
-<post-list :posts="posts" 
-@remove ="removePost" /> 
-
-<my-button
-  @click = "showDialog">Создать пользователя</my-button>
-
-  <my-dialog v-model:show="dialogVisible">
   
-    <post-form  @create="createPost"/>
+<post-list :posts="posts" 
+@remove ="removePost"/>
+  <my-dialog v-model:show="dialogVisible">
+      <post-form   @create="createPost"/>
+
   </my-dialog>
+ 
+<div class="wave">
+</div>
+<div class="wave">
+</div>
+<div class="wave">
+</div>
+<custom-list :customs="customs"/>
 
+</div>
 
-<div class="wave">
-</div>
-<div class="wave">
-</div>
-<div class="wave">
-</div>
-<custom-list :custom="custom"/> 
-</div>
+ <my-button @click = "ShowDialog">
+  Создать пользователя
+</my-button>
+
 
 </template>
 <script>
+
 import PostForm from '@/components/PostForm';
 import PostList from "@/components/PostList";
 import CustomList from "@/components/CustomList";
@@ -42,7 +45,7 @@ name:'',
 parent:'',
 type:''}
 ],
-custom:[{
+customs:[{
 id:'1',
 name:'Паньшин Никита Вадимович',
 data_birthday:'21.01.2001',
@@ -60,6 +63,11 @@ console.log(this.posts)
 methods:
 {createPost(post){
    this.posts.push(post);
+   HTTP.post('unit/',{id:'10',
+type:'Управление',
+name:'УПРС',
+parent:'4'
+});
    this.dialogVisible = false;
 
 },
@@ -67,35 +75,28 @@ removePost(post){
 this.posts = this.posts.filter(p =>p.id !== post.id);
 
 },
-showDialog(){
+ShowDialog(){
   this.dialogVisible = true;
 },
 async getUnit(){
   const units=(await HTTP.get('/unit')).data;
   console.log(units);
-  return units;
-
-
+  return units;}
 }
-
-
 }
-
-
-}
-
-
 </script>
 
 <style>
-body{ margin:0;
+
+
+
+body{ margin:auto;
   padding:0;
+position:fixed;
   box-sizing: border-box;
   color:  #fcfffc;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
 	font-size: 17px;
-
-
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
     overflow: auto;
     background: linear-gradient(315deg, rgba(101,0,94,1) 3%, rgba(60,132,206,1) 38%, rgba(48,238,226,1) 68%, rgba(255,25,25,1) 98%);
@@ -118,6 +119,8 @@ body{ margin:0;
     }
 }
 
+
+
 .wave {
     background: rgb(255 255 255 / 25%);
     border-radius: 1000% 1000% 0 0;
@@ -131,6 +134,7 @@ body{ margin:0;
     left: 0;
     z-index: -1;
 }
+
 
 .wave:nth-of-type(2) {
     bottom: -1.25em;
@@ -165,7 +169,10 @@ body{ margin:0;
         transform: translateX(1);
     }
 }
-
+.new_custom{
+  position:static;
+  height: auto;
+}
 
 
 </style>

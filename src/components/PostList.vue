@@ -1,15 +1,16 @@
 
 <template>
   
-        <div class ='menu' v-if = "posts.length > 0 ">
+        <div class ='menu' @click.right="context_menu" v-if = "posts.length > 0">
             <h3>Список подразделений</h3>
  
 <post-item v-for = "post in posts" 
 :post="post" 
 :key="post.id"
 @remove = "$emit('remove',post)"/>
-<my-button
-@click = "showDialog">Создать пользователя</my-button>
+<my-button 
+  @click = "ShowDialog">Создать пользователя
+</my-button>
 </div>
 <h2 v-else style="color:red">
     Список пользователей пуст
@@ -22,12 +23,7 @@ import PostItem from '@/components/PostItem';
 
 export default{
     components:{PostItem},
-data(){
-return{
-    dialogVisible: false,
-}
 
-},
 props:{
  posts:{
   type: Array,
@@ -36,11 +32,16 @@ props:{
 
 },
 methods:{
-showDialog(){
-  this.dialogVisible = true;
+    context_menu(){
+        console.log(123);
+    },
+ShowDialog(){
+  this.$emit('dialogVisible',true)
+  console.log('HZ')
+}
 }
 
-}}
+}
 
 </script>
 
@@ -48,8 +49,8 @@ showDialog(){
 
 .menu{
 	padding: 5vh 20px;
-	height: 70vh;
-	border-right: 7px solid #fcfffc;
+	height: 30vh;
+
 	position: fixed;
 	opacity: 0.7;
 	transition: 0.4s ease;

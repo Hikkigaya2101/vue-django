@@ -1,9 +1,11 @@
 <template>
 <div class ="form_list">
-  
     <h1>Список пользователей</h1>
-    <div class ='menu_custom' v-if = "custom.length > 0 ">
+    <div class ='menu_custom' v-if = "customs.length > 0 ">
  
+ <custom-item v-for = "custom in customs" 
+:custom="custom" 
+:key="custom.id"/>
     </div>
     <h2 v-else style="color:red">
     Список пользователей пуст
@@ -15,11 +17,9 @@
 <script>
 import CustomItem from "@/components/CustomItem";
 export default {
- component:{
-CustomItem,
- },    
+ components:{CustomItem},    
 props:{
- custom:{
+ customs:{
   type: Array,
   required:true,
  }
@@ -32,7 +32,6 @@ props:{
     padding: 5vh 50px;
 	background-color: none;
 	height: 100vh;
-	border-left: 7px solid #fcfffc;
 	position: fixed;
 	transition: 0.4s ease;
 	right: 0px;

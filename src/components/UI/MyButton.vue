@@ -12,9 +12,10 @@
   
   <style scoped>
   .btn {
-    padding: 10px 15px;
+    z-index: 100;
+    padding: 10px 25px;
     background: none;
-    color: teal;
+    color: rgb(205, 235, 235);
     border: 1px solid rgb(223, 232, 232);
   }
   </style>

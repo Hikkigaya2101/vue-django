@@ -1,16 +1,15 @@
 <template>
 <div class = 'app'>
   
-  <h1>Страница с постами</h1>
-  
-  
-<post-list :posts="posts" 
+<post-list :posts="posts " :unit_stats="unit_stats" 
 @remove ="removePost"/>
   <my-dialog v-model:show="dialogVisible">
       <post-form   @create="createPost"/>
 
   </my-dialog>
- 
+  <my-button @click = "ShowDialog">
+  Создать пользователя
+</my-button>
 <div class="wave">
 </div>
 <div class="wave">
@@ -21,9 +20,7 @@
 
 </div>
 
- <my-button @click = "ShowDialog">
-  Создать пользователя
-</my-button>
+
 
 
 </template>
@@ -32,8 +29,10 @@
 import PostForm from '@/components/PostForm';
 import PostList from "@/components/PostList";
 import CustomList from "@/components/CustomList";
+
 //import axios from 'axios';
-import { HTTP } from '@/axios/common'
+import { HTTP } from '@/axios/common';
+import {getAge} from './dll/statistic'
 
 export default{
   components:{PostForm,PostList,CustomList},
@@ -46,30 +45,31 @@ parent:'',
 type:''}
 ],
 customs:[{
-id:'1',
-name:'Паньшин Никита Вадимович',
-data_birthday:'21.01.2001',
-}
-],
-
+id:'',
+name:'',
+data_birthday:'',
+data_workday:''}],
+unit_stats:[{dlina:'5'}],
+//age:getAge('May 1,2001')
   dialogVisible: false,
   }},
    mounted(){
 HTTP.get('unit').then(response=>this.posts = response.data);
 console.log(this.posts)
+HTTP.get('consumer/').then(response=>this.customs = response.data);
+console.log(this.customs)
+console.log(getAge("May 1,2001"))
+
 },
-   
    
 methods:
 {createPost(post){
    this.posts.push(post);
-   HTTP.post('unit/',{id:'10',
-type:'Управление',
-name:'УПРС',
-parent:'4'
-});
+   HTTP.post('unit/',{
+type:this.post.type,
+name:this.post.name});
    this.dialogVisible = false;
-
+console.log('post=',this.post)
 },
 removePost(post){
 this.posts = this.posts.filter(p =>p.id !== post.id);
@@ -79,8 +79,9 @@ ShowDialog(){
   this.dialogVisible = true;
 },
 async getUnit(){
-  const units=(await HTTP.get('/unit')).data;
+  const units=(await HTTP.get('unit/')).data;
   console.log(units);
+
   return units;}
 }
 }
@@ -173,6 +174,9 @@ position:fixed;
   position:static;
   height: auto;
 }
-
+.app{
+  display: flex;
+  position: fixed;
+}
 
 </style>

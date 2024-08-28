@@ -8,13 +8,16 @@
 :post="post" 
 :key="post.id"
 @remove = "$emit('remove',post)"/>
-<my-button 
-  @click = "ShowDialog">Создать пользователя
-</my-button>
+  <my-button  style ='align-self: flex-end' @click='createCustom' >Создать</my-button>
 </div>
 <h2 v-else style="color:red">
-    Список пользователей пуст
+    Список подразделений пуст
 </h2>
+<div class="but">
+
+</div>
+
+
 
 </template>
 
@@ -48,13 +51,20 @@ ShowDialog(){
 <style>
 
 .menu{
-	padding: 5vh 20px;
-	height: 30vh;
-
+    display: block;
+	padding: 5vh 40px;
+	height: 80vh;
+    overflow:hidden;
 	position: fixed;
 	opacity: 0.7;
 	transition: 0.4s ease;
+    list-style: none;
+text-decoration: none;
 }
+.but{
 
+    z-index: 0;
+    
+}
 
 </style>

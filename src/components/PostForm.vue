@@ -1,11 +1,11 @@
 <template>
     <div class = 'add_form' >
     <form @submit.prevent>
-        <h4>Создание поста</h4>
-        <my-input
-         v-model="post.id"
-          placeholder="Название"/>
-          <my-input  v-model = "post.name"  placeholder="Описание"/>
+        <h4>Добавить подразделение</h4>
+        <my-input v-model="post.name" placeholder="Название"/>
+          <my-input  v-model = "post.type"  placeholder="Тип"/>
+          
+ 
         <my-button  style ='align-self: flex-end' @click='createPost' >Создать</my-button>
         </form>
     </div>
@@ -31,8 +31,9 @@ export default {
     methods:{
 createPost(){
 this.post.id= Date.now();
-this.$emit('create',this.post)
-this.post = {name : '',type : ''}
+this.$emit('create',this.post);
+
+this.post = {name :this.post.name ,type : this.post.type}
 
 HTTP.post('unit',{
     name: 'Fred',

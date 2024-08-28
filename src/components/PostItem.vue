@@ -4,6 +4,7 @@
     <div>
         <div><strong>Название:</strong>{{ post.name }}</div>
     <div><strong>Тип:</strong>{{ post.type }}</div>
+   
     
     </div>
     <div class="post__btns">

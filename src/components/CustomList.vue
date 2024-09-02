@@ -8,27 +8,29 @@
   <thead>
     <tr>
       <th scope="col">Количество пользователей:</th>
-      <th scope="col">{{unit_stats}}</th>
+      
     </tr>
     
   </thead>
   <tbody>
     <tr>
       <th scope="row">Средний возраст:</th>
-      <th scope="col"></th>
+      <th v scope="col"></th>
     </tr>
     <tr>
       <th scope="row">Средний стаж работы:</th>
-      <th scope="col"></th>
+      <!--div >{{getAge(customs[2].data_birthday)}}</div-->
+      <button @click="get_data_birthday">12</button>
     </tr>
 
+    
   </tbody>
 
 </table>
 
 
 </div>  
-  <h1>Список пользователей</h1>
+<h1>Список пользователей</h1>
   {{dialogCustomVisible}}
     <div class ='menu_custom' v-if = "customs.length > 0 ">
  
@@ -47,12 +49,13 @@
   </my-dialog>
 </template>
 
-<script>
+<script >
 import CustomItem from "@/components/CustomItem"
 import CustomPostForm from "@/components/CustomPostForm.vue"
 
 export default {
  components:{CustomItem,CustomPostForm},    
+
 props:{
     customs:{
   type: Array,
@@ -60,6 +63,8 @@ props:{
  },unit_stats:{type: Array,
   required:true,}
 },
+
+
 data(){
   return{
     dialogCustomVisible:false,
@@ -68,8 +73,30 @@ data(){
 methods:{
   ShowCustomDialog(){
 this.dialogCustomVisible = true;
+  },
+getAge(dateString) {
+    var today = new Date();
+    var birthDate = new Date(dateString);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    return age;
+},
+get_data_birthday(){
+var json_data = this.customs;
 
-  }
+var result = [];
+for(var i in json_data)
+     console.log(json_data[i])
+    result.push([i, json_data[i]]);
+    //console.log(result)
+      }
+
+
+
+
    
 },
 mounted(){

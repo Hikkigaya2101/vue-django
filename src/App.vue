@@ -1,7 +1,8 @@
 <template>
+
 <div class = 'app'>
-  
-<post-list :posts="posts " :unit_stats="unit_stats" 
+  {{ consumer_age }}
+<post-list :posts="posts"  
 @remove ="removePost"/>
   <my-dialog v-model:show="dialogVisible">
       <post-form   @create="createPost"/>
@@ -16,12 +17,9 @@
 </div>
 <div class="wave">
 </div>
-<custom-list :customs="customs"/>
+<custom-list :customs="customs" />
 
 </div>
-
-
-
 
 </template>
 <script>
@@ -32,11 +30,13 @@ import CustomList from "@/components/CustomList";
 
 //import axios from 'axios';
 import { HTTP } from '@/axios/common';
-import {getAge} from './dll/statistic'
+
+
 
 export default{
   components:{PostForm,PostList,CustomList},
-data(){
+
+  data(){
 return{
 
 posts:[{id:'',
@@ -45,34 +45,40 @@ parent:'',
 type:''}
 ],
 customs:[{
-id:'',
 name:'',
 data_birthday:'',
-data_workday:''}],
-unit_stats:[{dlina:'5'}],
-//age:getAge('May 1,2001')
+data_workday:'',
+unit:''}],
+unit_stats:[{age:''}],
   dialogVisible: false,
   }},
    mounted(){
 HTTP.get('unit').then(response=>this.posts = response.data);
 console.log(this.posts)
 HTTP.get('consumer/').then(response=>this.customs = response.data);
-console.log(this.customs)
-console.log(getAge("May 1,2001"))
+console.log(this.customs);
+
 
 },
    
 methods:
 {createPost(post){
    this.posts.push(post);
-   HTTP.post('unit/',{
-type:this.post.type,
-name:this.post.name});
+   console.log(this.posts)
+   HTTP.post('unit/',this.post,
+ {headers: {
+            xsrfHeaderName: "X-CSRFToken"
+        }})
    this.dialogVisible = false;
 console.log('post=',this.post)
 },
+
+onClick (text) {
+  alert(`You clicked ${text}!`)},
+
 removePost(post){
 this.posts = this.posts.filter(p =>p.id !== post.id);
+//HTTP.delete('unit/',this.posts.filter(p =>p.id !== post.id),{headers: {xsrfHeaderName: "X-CSRFToken"}})
 
 },
 ShowDialog(){
@@ -82,8 +88,13 @@ async getUnit(){
   const units=(await HTTP.get('unit/')).data;
   console.log(units);
 
-  return units;}
-}
+  return units;},
+},
+createCustom(){
+HTTP.post('consumer/',this.custom, {headers: {
+            xsrfHeaderName: "X-CSRFToken"
+        }})
+        }
 }
 </script>
 

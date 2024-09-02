@@ -4,6 +4,7 @@
         <h4>Добавить подразделение</h4>
         <my-input v-model="post.name" placeholder="Название"/>
           <my-input  v-model = "post.type"  placeholder="Тип"/>
+          <my-input  v-model = "post.parent"  placeholder="Подчиняется"/>
           
  
         <my-button  style ='align-self: flex-end' @click='createPost' >Создать</my-button>
@@ -16,7 +17,6 @@
 
 <script>
 
-import { HTTP } from '@/axios/common'
 export default {
     data(){
        return{
@@ -33,13 +33,8 @@ createPost(){
 this.post.id= Date.now();
 this.$emit('create',this.post);
 
-this.post = {name :this.post.name ,type : this.post.type}
 
-HTTP.post('unit',{
-    name: 'Fred',
-    type: 'Flintstone'}, {headers: {
-            xsrfHeaderName: "X-CSRFToken"
-        }})
+
         }
     }
 }

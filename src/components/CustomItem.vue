@@ -5,6 +5,7 @@
     <div><strong>ФИО:</strong>{{ custom.name }}</div>
     <div><strong>Дата рождения:</strong>{{ custom.data_birthday }}</div>
     <div><strong>Дата выхода на работу:</strong>{{ custom.data_workday }}</div>   
+    <div><strong>Подразделение:</strong>{{ custom.unit }}</div>
        
         </div>
     </template>

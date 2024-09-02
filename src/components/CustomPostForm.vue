@@ -2,10 +2,11 @@
     <div class = 'add_custom_form' >
     <form @submit.prevent>
         <h4>Добавить сотрудника</h4>
-        <my-input v-model="custom.id" placeholder="id"/>
+
         <my-input v-model="custom.name" placeholder="ФИО"/>
           <my-input  v-model = "custom.data_birthday"  placeholder="Дата рождения"/>
           <my-input  v-model = "custom.data_workday"  placeholder="Дата назначения на должность"/>
+          <my-input v-model="custom.unit" placeholder="Подразделение"/>
         <my-button  style ='align-self: flex-end' @click='createCustom' >Создать</my-button>
         </form>
     </div>
@@ -24,7 +25,8 @@ export default {
 id:'',
 name:'',
 data_birthday:'',
-data_workday:''
+data_workday:'',
+unit:''
 }
     }
 },
@@ -32,11 +34,9 @@ data_workday:''
 createCustom(){
 
 this.$emit('create',this.custom)
-this.custom = {id:'',name : '',data_birthday : '',data_workday:''}
 
-HTTP.post('consumer',{
-    name: 'Fred',
-    type: 'Flintstone'}, {headers: {
+
+HTTP.post('consumer/',this.custom, {headers: {
             xsrfHeaderName: "X-CSRFToken"
         }})
         }

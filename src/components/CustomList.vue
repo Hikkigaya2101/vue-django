@@ -8,19 +8,20 @@
   <thead>
     <tr>
       <th scope="col">Количество пользователей:</th>
-      
+      <th scope="col">{{this.customs.length}}</th>
     </tr>
     
   </thead>
   <tbody>
     <tr>
       <th scope="row">Средний возраст:</th>
-      <th v scope="col"></th>
+    <th  scope="col">{{ get_average_consumer(this.customs) }}</th>
     </tr>
     <tr>
       <th scope="row">Средний стаж работы:</th>
+      <th scope="row">{{get_averworkday_consumer(this.customs)}}</th>
       <!--div >{{getAge(customs[2].data_birthday)}}</div-->
-      <button @click="get_data_birthday">12</button>
+      <button @click="get_average_consumer">12</button>
     </tr>
 
     
@@ -41,69 +42,42 @@
     <h2 v-else style="color:red">
     Список пользователей пуст
 </h2>
-<my-button @click = "ShowCustomDialog">Создать пользователя</my-button>
-</div>
-<my-dialog v-model:show="dialogCustomVisible">
-      <custom-post-form   @create="createCustom"/>
 
-  </my-dialog>
+</div>
+
 </template>
 
 <script >
 import CustomItem from "@/components/CustomItem"
-import CustomPostForm from "@/components/CustomPostForm.vue"
+import { get_birthday,get_workday} from "@/dll/statistic"
+
 
 export default {
- components:{CustomItem,CustomPostForm},    
+ components:{CustomItem},    
 
 props:{
     customs:{
   type: Array,
   required:true,
- },unit_stats:{type: Array,
-  required:true,}
-},
-
-
-data(){
-  return{
-    dialogCustomVisible:false,
-  }
+ },unit_stats:{type: Array,required:true,},
+  
 },
 methods:{
-  ShowCustomDialog(){
-this.dialogCustomVisible = true;
-  },
-getAge(dateString) {
-    var today = new Date();
-    var birthDate = new Date(dateString);
-    var age = today.getFullYear() - birthDate.getFullYear();
-    var m = today.getMonth() - birthDate.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-        age--;
-    }
-    return age;
+get_average_consumer(json_data){
+ 
+return get_birthday(json_data);
+}, 
+
+get_averworkday_consumer(json_data){
+
+return get_workday(json_data);
+}, 
+
 },
-get_data_birthday(){
-var json_data = this.customs;
-
-var result = [];
-for(var i in json_data)
-     console.log(json_data[i])
-    result.push([i, json_data[i]]);
-    //console.log(result)
-      }
-
-
-
-
-   
-},
+createCustom(){this.$emit('create',this.custom)}, 
 mounted(){
   this.$emit('create',this.customs)
-  this.custom = {id:'',name : '',data_birthday : '',data_workday:''}
-
-}
+  this.custom = {id:'',name : '',data_birthday : '',data_workday:''}}
 }
 </script>
 

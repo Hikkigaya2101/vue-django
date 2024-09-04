@@ -2,7 +2,6 @@
 <div class="post">  
     
     <div>
-        {{post}}
         <div><strong>Название:</strong>{{ post.name }}</div>
     <div><strong>Тип:</strong>{{ post.type }}</div>
    

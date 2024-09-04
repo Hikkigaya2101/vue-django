@@ -7,7 +7,7 @@
           <my-input  v-model = "custom.data_birthday"  placeholder="Дата рождения"/>
           <my-input  v-model = "custom.data_workday"  placeholder="Дата назначения на должность"/>
           <my-input v-model="custom.unit" placeholder="Подразделение"/>
-        <my-button  style ='align-self: flex-end' @click='createCustom' >Создать</my-button>
+        <my-button  style ='align-self: flex-end' @click='emitCustom' >Создать</my-button>
         </form>
     </div>
 </template>
@@ -17,12 +17,10 @@
 
 <script>
 
-import { HTTP } from '@/axios/common'
 export default {
     data(){
        return{
         custom:{
-id:'',
 name:'',
 data_birthday:'',
 data_workday:'',
@@ -31,21 +29,14 @@ unit:''
     }
 },
     methods:{
-createCustom(){
-
+emitCustom(){
 this.$emit('create',this.custom)
-
-
-HTTP.post('consumer/',this.custom, {headers: {
-            xsrfHeaderName: "X-CSRFToken"
-        }})
+console.log(this.custom)
         }
     }
 }
     
 </script>
 <style>
-.add_custom_form{
-    
-}
+
 </style>

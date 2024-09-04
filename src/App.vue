@@ -1,7 +1,7 @@
 <template>
 
 <div class = 'app'>
-  {{ consumer_age }}
+
 <post-list :posts="posts"  
 @remove ="removePost"/>
   <my-dialog v-model:show="dialogVisible">
@@ -9,7 +9,7 @@
 
   </my-dialog>
   <my-button @click = "ShowDialog">
-  Создать пользователя
+  Добавить подразделение
 </my-button>
 <div class="wave">
 </div>
@@ -20,29 +20,33 @@
 <custom-list :customs="customs" />
 
 </div>
+<my-dialog v-model:show="dialogCustomVisible">
+      <custom-post-form   @create = "createCustom"/>
 
+  </my-dialog>
+  <my-button class = 'btn_consumer' @click = "ShowCustomDialog">Создать пользователя</my-button>
 </template>
 <script>
 
 import PostForm from '@/components/PostForm';
 import PostList from "@/components/PostList";
 import CustomList from "@/components/CustomList";
+import CustomPostForm from "@/components/CustomPostForm"
 
-//import axios from 'axios';
 import { HTTP } from '@/axios/common';
 
 
 
 export default{
-  components:{PostForm,PostList,CustomList},
+  components:{PostForm,PostList,CustomList,CustomPostForm},
 
   data(){
 return{
-
 posts:[{id:'',
+type:'',
 name:'',
-parent:'',
-type:''}
+parent:''
+}
 ],
 customs:[{
 name:'',
@@ -51,35 +55,36 @@ data_workday:'',
 unit:''}],
 unit_stats:[{age:''}],
   dialogVisible: false,
+  dialogCustomVisible:false,
   }},
    mounted(){
 HTTP.get('unit').then(response=>this.posts = response.data);
-console.log(this.posts)
 HTTP.get('consumer/').then(response=>this.customs = response.data);
-console.log(this.customs);
-
-
 },
    
 methods:
 {createPost(post){
-   this.posts.push(post);
-   console.log(this.posts)
-   HTTP.post('unit/',this.post,
- {headers: {
-            xsrfHeaderName: "X-CSRFToken"
-        }})
+   this.posts.push(post);   
+   HTTP.post('unit/',this.post,{headers: { xsrfHeaderName: "X-CSRFToken"}})
    this.dialogVisible = false;
-console.log('post=',this.post)
-},
 
+},
+createCustom(custom){
+  this.customs.push(custom);  
+console.log(this.custom)
+this.custom
+HTTP.post('consumer/',this.custom, {headers: {xsrfHeaderName: "X-CSRFToken"}})
+        this.dialogCustomVisible = false},
+
+ShowCustomDialog(){
+this.dialogCustomVisible = true;
+  },
 onClick (text) {
   alert(`You clicked ${text}!`)},
 
 removePost(post){
 this.posts = this.posts.filter(p =>p.id !== post.id);
 //HTTP.delete('unit/',this.posts.filter(p =>p.id !== post.id),{headers: {xsrfHeaderName: "X-CSRFToken"}})
-
 },
 ShowDialog(){
   this.dialogVisible = true;
@@ -87,20 +92,18 @@ ShowDialog(){
 async getUnit(){
   const units=(await HTTP.get('unit/')).data;
   console.log(units);
-
   return units;},
-},
-createCustom(){
-HTTP.post('consumer/',this.custom, {headers: {
-            xsrfHeaderName: "X-CSRFToken"
-        }})
-        }
+}
 }
 </script>
 
 <style>
 
-
+.btn_consumer{
+  right: 0;
+  display: flex;
+  position: fixed;
+}
 
 body{ margin:auto;
   padding:0;

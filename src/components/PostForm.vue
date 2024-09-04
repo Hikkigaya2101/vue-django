@@ -1,13 +1,13 @@
 <template>
     <div class = 'add_form' >
     <form @submit.prevent>
-        <h4>Добавить подразделение</h4>
+        <h4>Добавить подразделение</h4>    
+         <my-input  v-model = "post.type"  placeholder="Тип"/>
         <my-input v-model="post.name" placeholder="Название"/>
-          <my-input  v-model = "post.type"  placeholder="Тип"/>
           <my-input  v-model = "post.parent"  placeholder="Подчиняется"/>
           
  
-        <my-button  style ='align-self: flex-end' @click='createPost' >Создать</my-button>
+        <my-button  style ='align-self: flex-end' @click='emitPost' >Создать</my-button>
         </form>
     </div>
 </template>
@@ -20,21 +20,17 @@
 export default {
     data(){
        return{
-        post:{
-            id:'',
+        post:{id:'',
+        type:'',
            name:'',
-           parent:'',
-           type:''
+           parent:''
+
         }
     }
 },
     methods:{
-createPost(){
-this.post.id= Date.now();
+emitPost(){this.post.id= Date.now();
 this.$emit('create',this.post);
-
-
-
         }
     }
 }

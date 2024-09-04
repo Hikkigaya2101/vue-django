@@ -54,12 +54,16 @@ ShowDialog(){
     display: block;
 	padding: 5vh 40px;
 	height: 80vh;
-    overflow:hidden;
+    overflow:scroll;
+
 	position: fixed;
 	opacity: 0.7;
 	transition: 0.4s ease;
     list-style: none;
 text-decoration: none;
+}
+.menu::-webkit-scrollbar{
+    background: none;
 }
 .but{
 

@@ -24,6 +24,7 @@
       if ( el.classList.contains(className) ) {
         return el;
       } else {
+        // eslint-disable-next-line no-cond-assign
         while ( el = el.parentNode ) {
           if ( el.classList && el.classList.contains(className) ) {
             return el;
@@ -44,6 +45,7 @@
       var posx = 0;
       var posy = 0;
   
+      // eslint-disable-next-line no-redeclare
       if (!e) var e = window.event;
       
       if (e.pageX || e.pageY) {
@@ -71,8 +73,7 @@
     /**
      * Variables.
      */
-    var contextMenuClassName = "context-menu";
-    var contextMenuItemClassName = "context-menu__item";
+
     var contextMenuLinkClassName = "context-menu__link";
     var contextMenuActive = "context-menu--active";
   
@@ -84,13 +85,11 @@
     var clickCoordsY;
   
     var menu = document.querySelector("#context-menu");
-    var menuItems = menu.querySelectorAll(".context-menu__item");
+
     var menuState = 0;
     var menuWidth;
     var menuHeight;
-    var menuPosition;
-    var menuPositionX;
-    var menuPositionY;
+
   
     var windowWidth;
     var windowHeight;
@@ -157,6 +156,7 @@
      * Window resize event listener
      */
     function resizeListener() {
+      // eslint-disable-next-line no-unused-vars
       window.onresize = function(e) {
         toggleMenuOff();
       };

@@ -8,7 +8,7 @@
 :post="post" 
 :key="post.id"
 @remove = "$emit('remove',post)"/>
-  <my-button  style ='align-self: flex-end' @click='createCustom' >Создать</my-button>
+
 </div>
 <h2 v-else style="color:red">
     Список подразделений пуст
@@ -16,14 +16,12 @@
 <div class="but">
 
 </div>
-
-
-
+<!--my-button  style ='align-self: flex-end' @click='put_post' >обновить</my-button-->
 </template>
 
 <script>
 import PostItem from '@/components/PostItem';
-
+import { HTTP } from '@/axios/common';
 export default{
     components:{PostItem},
 
@@ -32,7 +30,6 @@ props:{
   type: Array,
   required:true,
  }
-
 },
 methods:{
     context_menu(){
@@ -41,6 +38,9 @@ methods:{
 ShowDialog(){
   this.$emit('dialogVisible',true)
   console.log('HZ')
+},
+put_post(){
+    HTTP.put('unit/1/',{name:'NIKITA'},{headers: {xsrfHeaderName: "X-CSRFToken"}})
 }
 }
 
@@ -55,7 +55,6 @@ ShowDialog(){
 	padding: 5vh 40px;
 	height: 80vh;
     overflow:scroll;
-
 	position: fixed;
 	opacity: 0.7;
 	transition: 0.4s ease;

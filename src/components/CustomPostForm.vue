@@ -16,7 +16,7 @@
 </style >
 
 <script>
-
+import { HTTP } from '@/axios/common';
 export default {
     data(){
        return{
@@ -31,6 +31,7 @@ unit:''
     methods:{
 emitCustom(){
 this.$emit('create',this.custom)
+HTTP.post('consumer/',this.custom, {headers: {xsrfHeaderName: "X-CSRFToken"}})
 console.log(this.custom)
         }
     }

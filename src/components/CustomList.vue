@@ -20,16 +20,11 @@
     <tr>
       <th scope="row">Средний стаж работы:</th>
       <th scope="row">{{get_averworkday_consumer(this.customs)}}</th>
-      <!--div >{{getAge(customs[2].data_birthday)}}</div-->
-      <button @click="get_average_consumer">12</button>
+
+      <!--button @click="get_average_consumer">12</button-->
     </tr>
-
-    
   </tbody>
-
 </table>
-
-
 </div>  
 <h1>Список пользователей</h1>
   {{dialogCustomVisible}}
@@ -90,7 +85,11 @@ mounted(){
 	transition: 0.4s ease;
 	right: 0px;
   font-size:14px;
+  overflow:scroll;
 
+}
+.form_list::-webkit-scrollbar{
+    background: none;
 }
 th{
     padding:15px;

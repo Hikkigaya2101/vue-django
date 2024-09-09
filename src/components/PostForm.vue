@@ -5,8 +5,6 @@
          <my-input  v-model = "post.type"  placeholder="Тип"/>
         <my-input v-model="post.name" placeholder="Название"/>
           <my-input  v-model = "post.parent"  placeholder="Подчиняется"/>
-          
- 
         <my-button  style ='align-self: flex-end' @click='emitPost' >Создать</my-button>
         </form>
     </div>
@@ -16,7 +14,7 @@
 </style >
 
 <script>
-
+import { HTTP } from '@/axios/common';
 export default {
     data(){
        return{
@@ -31,6 +29,9 @@ export default {
     methods:{
 emitPost(){this.post.id= Date.now();
 this.$emit('create',this.post);
+HTTP.post('unit/',this.post,{headers: { xsrfHeaderName: "X-CSRFToken"}})
+this.dialogVisible = false;
+console.log(this.post)
         }
     }
 }

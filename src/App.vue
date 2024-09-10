@@ -1,6 +1,6 @@
 <template>
 
-<div class = 'app'>
+<div  class = 'app' >
 
 <post-list :posts="posts"  
 @remove ="removePost"/>
@@ -12,7 +12,7 @@
       <post-form   @create="createPost"/>
   </my-dialog>
   
-  <!--my-button @click = "ShowDialog">Добавить подразделение</my-button-->
+  <!--my-button @click = "CM_CALL()">ВКЛ контексное меню</my-button-->
 <div class="wave">
 </div>
 <div class="wave">
@@ -23,7 +23,7 @@
 
 </div>
 <my-dialog v-model:show="dialogCustomVisible">
-      <custom-post-form   @create = "createCustom"/>
+      <custom-post-form   @create = "createCustom()"/>
 
   </my-dialog>
   <my-button class = 'btn_consumer' @click = "ShowCustomDialog">Создать пользователя</my-button>
@@ -51,6 +51,8 @@ import PostForm from '@/components/PostForm';
 import PostList from "@/components/PostList";
 import CustomList from "@/components/CustomList";
 import CustomPostForm from "@/components/CustomPostForm"
+// eslint-disable-next-line
+import { CM_CALL } from '@/dll/scripts'
 
 import { HTTP } from '@/axios/common';
 
@@ -79,8 +81,6 @@ unit_stats:[{age:''}],
    mounted(){
 HTTP.get('unit').then(response=>this.posts = response.data);
 HTTP.get('consumer/').then(response=>this.customs = response.data);
-
-
 
 (function() {
   
@@ -284,8 +284,8 @@ async getUnit(){
   const units=(await HTTP.get('unit/')).data;
   console.log(units);
   return units;},
+},
 
-}
 }
 </script>
 
@@ -325,8 +325,6 @@ position:fixed;
         background-position: 0% 0%;
     }
 }
-
-
 
 .wave {
     background: rgb(255 255 255 / 25%);

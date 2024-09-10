@@ -1,6 +1,6 @@
 <template>
-<div class="post">  
-    
+<div class="post" @click="getConsumerUnit()">  
+
     <div>
         <div><strong>Название:</strong>{{ post.name }}</div>
     <div><strong>Тип:</strong>{{ post.type }}</div>
@@ -8,15 +8,18 @@
     
     </div>
     <div class="post__btns">
-        <my-button @click="$emit('remove',post)">Удалить</my-button>
+        <!--my-button @click="$emit('remove',post)">Удалить</my-button-->
     </div>
     </div>
     
 </template>
 
 <script>
-
+import { HTTP } from '@/axios/common';
 export default{
+
+
+
 props:{
  post:{
   type: Array,
@@ -27,8 +30,17 @@ mounted(){
 document.querySelector('.post').onclick = function() {
 document.querySelector(".post").style.backgroundColor = "#30eee2";
 }
+},
+methods:{
+    getConsumerUnit(){
+        
+const params = {'search': 1};
+HTTP.get('consumer/', {params})
+this.dialogVisible = false;
 
-}}
+    },
+}
+}
 </script>
 
 <style scoped>

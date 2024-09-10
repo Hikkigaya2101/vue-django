@@ -1,15 +1,5 @@
-(function() {
-  
+export function CM_CALL() {
     "use strict";
-  
-    //////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////
-    //
-    // H E L P E R    F U N C T I O N S
-    //
-    //////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////
-  
     /**
      * Function to check if we clicked inside an element with a particular class
      * name.
@@ -61,42 +51,21 @@
         y: posy
       }
     }
-  
-    //////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////
-    //
-    // C O R E    F U N C T I O N S
-    //
-    //////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////
-    
-    /**
-     * Variables.
-     */
-
     var contextMenuLinkClassName = "context-menu__link";
     var contextMenuActive = "context-menu--active";
-  
-    var taskItemClassName = "task";
+
+    var taskItemClassName = "app";
     var taskItemInContext;
-  
     var clickCoords;
     var clickCoordsX;
     var clickCoordsY;
-  
     var menu = document.querySelector("#context-menu");
-
     var menuState = 0;
     var menuWidth;
     var menuHeight;
-
-  
     var windowWidth;
     var windowHeight;
-  
-    /**
-     * Initialise our application's code.
-     */
+
     function init() {
       contextListener();
       clickListener();
@@ -104,9 +73,6 @@
       resizeListener();
     }
   
-    /**
-     * Listens for contextmenu events.
-     */
     function contextListener() {
       document.addEventListener( "contextmenu", function(e) {
         taskItemInContext = clickInsideElement( e, taskItemClassName );
@@ -121,10 +87,7 @@
         }
       });
     }
-  
-    /**
-     * Listens for click events.
-     */
+
     function clickListener() {
       document.addEventListener( "click", function(e) {
         var clickeElIsLink = clickInsideElement( e, contextMenuLinkClassName );
@@ -140,10 +103,7 @@
         }
       });
     }
-  
-    /**
-     * Listens for keyup events.
-     */
+
     function keyupListener() {
       window.onkeyup = function(e) {
         if ( e.keyCode === 27 ) {
@@ -152,9 +112,7 @@
       }
     }
   
-    /**
-     * Window resize event listener
-     */
+
     function resizeListener() {
       // eslint-disable-next-line no-unused-vars
       window.onresize = function(e) {
@@ -162,9 +120,7 @@
       };
     }
   
-    /**
-     * Turns the custom context menu on.
-     */
+
     function toggleMenuOn() {
       if ( menuState !== 1 ) {
         menuState = 1;
@@ -172,9 +128,7 @@
       }
     }
   
-    /**
-     * Turns the custom context menu off.
-     */
+
     function toggleMenuOff() {
       if ( menuState !== 0 ) {
         menuState = 0;
@@ -191,10 +145,8 @@
       clickCoords = getPosition(e);
       clickCoordsX = clickCoords.x;
       clickCoordsY = clickCoords.y;
-  
       menuWidth = menu.offsetWidth + 4;
       menuHeight = menu.offsetHeight + 4;
-  
       windowWidth = window.innerWidth;
       windowHeight = window.innerHeight;
   
@@ -220,10 +172,5 @@
       console.log( "Task ID - " + taskItemInContext.getAttribute("data-id") + ", Task action - " + link.getAttribute("data-action"));
       toggleMenuOff();
     }
-  
-    /**
-     * Run the app.
-     */
     init();
-  
-  })();
+  }

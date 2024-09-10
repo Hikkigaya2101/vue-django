@@ -27,12 +27,12 @@
 </table>
 </div>  
 <h1>Список пользователей</h1>
-  {{dialogCustomVisible}}
+
     <div class ='menu_custom' v-if = "customs.length > 0 ">
- 
- <custom-item v-for = "custom in customs" 
-:custom="custom" 
-:key="custom.id"/>
+ <custom-item v-for = "custom in customs"
+  :custom="custom"
+  :key="custom.id"/>
+
     </div>
     <h2 v-else style="color:red">
     Список пользователей пуст

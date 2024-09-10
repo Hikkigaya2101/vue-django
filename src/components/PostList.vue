@@ -1,6 +1,6 @@
 
 <template>
-  
+
         <div class ='menu' @click.right="context_menu" v-if = "posts.length > 0">
             <h3>Список подразделений</h3>
  
@@ -13,9 +13,6 @@
 <h2 v-else style="color:red">
     Список подразделений пуст
 </h2>
-<div class="but">
-
-</div>
 <!--my-button  style ='align-self: flex-end' @click='put_post' >обновить</my-button-->
 </template>
 
@@ -63,11 +60,6 @@ text-decoration: none;
 }
 .menu::-webkit-scrollbar{
     background: none;
-}
-.but{
-
-    z-index: 0;
-    
 }
 
 </style>

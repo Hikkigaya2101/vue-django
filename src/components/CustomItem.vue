@@ -17,12 +17,15 @@
       type: Object,
       required:true,
      }
-    }
+    },mounted(){
+document.querySelector(' .custom_card').onclick = function() {
+document.querySelector(" .custom_card").style.backgroundColor = "#30eee2";
+}
+}
     }
     </script>
     
     <style scoped>
-    
     .custom_card{
     padding:10px;
     border: 2px solid teal;
@@ -32,4 +35,14 @@
   justify-content: center;
   text-align: center;
     }
+    .custom_card:hover{
+    border: 2px solid rgba(221, 223, 232, 0.5);
+    background: linear-gradient(135deg,
+    (rgba(255,255,255,0.05))
+    (rgba(255,255,255,0.05)));
+-webkit-backdrop-filter: blur(1px);
+backdrop-filter: blur(1px);
+box-shadow: 0 8px 24px rgba(221, 223, 232, 0.5);    
+}
+
     </style>

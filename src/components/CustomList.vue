@@ -80,7 +80,7 @@ mounted(){
 .form_list{
     padding: 5vh 50px;
 	background-color: none;
-	height: 100vh;
+	height: 80vh;
 	position: fixed;
 	transition: 0.4s ease;
 	right: 0px;

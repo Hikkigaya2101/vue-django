@@ -1,6 +1,6 @@
 
 <template>
-
+<div class = 'list_menu'>
         <div class ='menu' @click.right="context_menu" v-if = "posts.length > 0">
             <h3>Список подразделений</h3>
  
@@ -10,9 +10,11 @@
 @remove = "$emit('remove',post)"/>
 
 </div>
+
 <h2 v-else style="color:red">
     Список подразделений пуст
 </h2>
+</div>
 <!--my-button  style ='align-self: flex-end' @click='put_post' >обновить</my-button-->
 </template>
 

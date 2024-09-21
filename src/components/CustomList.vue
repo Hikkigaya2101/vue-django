@@ -96,9 +96,12 @@ th{
     border: 2px solid teal;
     margin-top: 15px;
     box-sizing: border-box;
-  font-size:12px;
+  font-size:15px;
   justify-content: center;
   text-align: center;
 
+}
+caption{
+  font-size: 20px;
 }
 </style>

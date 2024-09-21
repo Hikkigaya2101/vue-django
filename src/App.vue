@@ -1,7 +1,9 @@
 <template>
-
+<h1>Hello World.</h1>
 <div  class = 'app' >
-
+  <!--div id="app">
+    <Tree :items="items"/>
+  </div-->
 <post-list :posts="posts"  
 @remove ="removePost"/>
   <my-dialog v-model:show="dialogVisible">
@@ -9,7 +11,7 @@
   </my-dialog>
 
   <my-dialog v-model:show="putch_dialogVisible">
-      <post-form   @create="createPost"/>
+      <put-form   @create="createPut"/>
   </my-dialog>
   
   <!--my-button @click = "CM_CALL()">ВКЛ контексное меню</my-button-->
@@ -36,7 +38,7 @@
         <a href="#" class="context-menu__link" data-action="View" @click="ShowDialog"><i class="fa fa-eye"></i> Добавить пользователя</a>
       </li>
       <li class="context-menu__item">
-        <a href="#" class="context-menu__link" data-action="Edit" @click="ShowDialog"><i class="fa fa-edit"></i> Изменить пользователя</a>
+        <a href="#" class="context-menu__link" data-action="Edit" @click="ShowPutDialog"><i class="fa fa-edit"></i> Изменить пользователя</a>
       </li>
       <li class="context-menu__item">
         <a class="context-menu__link" data-action="Delete" @click="removePost"><i class="fa fa-times"></i> Удалить пользователя</a>
@@ -48,21 +50,37 @@
 <script>
 
 import PostForm from '@/components/PostForm';
+import PutForm from '@/components/PutForm';
 import PostList from "@/components/PostList";
 import CustomList from "@/components/CustomList";
 import CustomPostForm from "@/components/CustomPostForm"
 // eslint-disable-next-line
 import { CM_CALL } from '@/dll/scripts'
+//import Tree from "@/components/Tree";
 
 import { HTTP } from '@/axios/common';
 
 
 
 export default{
-  components:{PostForm,PostList,CustomList,CustomPostForm},
+  components:{PostForm,PostList,CustomList,CustomPostForm,PutForm},
 
   data(){
-return{
+return{items: [
+        {
+          name: "foo",
+          children: [
+            { name: "bar", children: [{ name: "baz" }, { name: "qux" }] }
+          ]
+        },
+        {
+          name: "lorem",
+          children: [{ name: "ipsum" }]
+        },
+        {
+          name: "dolor"
+        }
+      ],
 posts:[{id:'',
 type:'',
 name:'',
@@ -77,11 +95,14 @@ unit:''}],
 unit_stats:[{age:''}],
   dialogVisible: false,
   dialogCustomVisible:false,
+  putch_dialogVisible:false,
   }},
    mounted(){
 HTTP.get('unit').then(response=>this.posts = response.data);
 HTTP.get('consumer/').then(response=>this.customs = response.data);
 
+
+//контексное меню
 (function() {
   
   "use strict";
@@ -138,7 +159,7 @@ HTTP.get('consumer/').then(response=>this.customs = response.data);
   }
   var contextMenuLinkClassName = "context-menu__link";
   var contextMenuActive = "context-menu--active";
-  var taskItemClassName = "post";
+  var taskItemClassName = "list_menu";
   var taskItemInContext;
   var clickCoords;
   var clickCoordsX;
@@ -261,6 +282,13 @@ methods:
    this.dialogVisible = false;
 
 },
+createPut(post){
+   this.posts.push(post);  
+    
+   //HTTP.post('unit/',this.post,{headers: { xsrfHeaderName: "X-CSRFToken"}})
+   this.putch_dialogVisible = false;
+
+},
 createCustom(custom){
   this.customs.push(custom);  
 //HTTP.post('consumer/',this.custom, {headers: {xsrfHeaderName: "X-CSRFToken"}})
@@ -280,6 +308,9 @@ console.log('FINISH')
 ShowDialog(){
   this.dialogVisible = true;
 },
+ShowPutDialog(){
+  this.putch_dialogVisible = true;
+},
 async getUnit(){
   const units=(await HTTP.get('unit/')).data;
   console.log(units);
@@ -290,13 +321,17 @@ async getUnit(){
 </script>
 
 <style>
-
+h1{
+  display: flex;
+  position: relative;
+  margin: 0 auto;
+}
 .btn_consumer{
   right: 0;
   display: flex;
   position: fixed;
 }
-
+/*градиент
 body{ margin:auto;
   padding:0;
 position:fixed;
@@ -309,7 +344,13 @@ position:fixed;
     background: linear-gradient(315deg, rgba(101,0,94,1) 3%, rgba(60,132,206,1) 38%, rgba(48,238,226,1) 68%, rgba(255,25,25,1) 98%);
     animation: gradient 15s ease infinite;
     background-size: 400% 400%;
-    background-attachment: fixed;}
+    background-attachment: fixed;}*/
+   
+    body{
+
+      background-color: black;
+      color:rgb(32, 218, 211); 
+    }
 @keyframes gradient {
     0% {
         background-position: 0% 0%;

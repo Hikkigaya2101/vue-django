@@ -6,7 +6,7 @@ export const postModule = {
         limit:5,
     }),
     getters:{
-      POSTS: state => {return state.posts} 
+      POSTS: state => {return state.limit} 
     },
     mutations:{
     setPosts: (state,posts)=>{
@@ -15,13 +15,16 @@ export const postModule = {
     setCustoms(state,customs){
         state.customs = customs;
     },
+    setLikes(state){
+         state.limit+=2;
+    },
     },
     actions:{
         getConsumerUnit(){
         
-            const params = {'search': 1};
+            const params = {'search': 27};
             HTTP.get('consumer/', {params})
-            this.dialogVisible = false;
+        
             },
             setPosts : async(context,posts)=>{
                 let {data} = await HTTP.get('unit');
@@ -29,6 +32,10 @@ export const postModule = {
                 context.commit('setPosts', posts);
               }
             },
+            message(){
+                console.log('gavno');
+            }
 
     },
+    namespaced:true
 }

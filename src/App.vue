@@ -1,6 +1,7 @@
 <template>
-<h1 style="color:aqua">{{$store.state}}</h1>
-<my-button class="button" @click="POSTS">vuex</my-button>
+<h1 style="color:aqua">{{$store.getters.POSTS}}</h1>
+<my-button class="button" @click="Getputch()">vuex</my-button>
+
 <div  class = 'app' >
   <!--div id="app">
     <Tree :items="items"/>
@@ -53,7 +54,8 @@ import { CM_CALL } from '@/dll/scripts'
 //import Tree from "@/components/Tree";
 
 import { HTTP } from '@/axios/common';
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters,mapMutations } from 'vuex';
+
 
 
 
@@ -95,6 +97,7 @@ unit:''}],
 HTTP.get('unit').then(response=>this.posts = response.data);
 //HTTP.get('unit').then(response=>(this.setPosts(response.data)));
 HTTP.get('consumer/').then(response=>this.customs = response.data);
+
 
 
 
@@ -270,16 +273,18 @@ HTTP.get('consumer/').then(response=>this.customs = response.data);
 })();
 },
 computed:{
-...mapActions(['setPosts']),
-...mapGetters(['POSTS'])
+...mapActions({getConsumerUnit:'post/getConsumerUnit',message:'post/message'},
+),
+...mapGetters(['POSTS']),
+...mapMutations(['setLikes'])
 },   
 
 methods:
 {createPost(post){
    this.posts.push(post);  
    this.dialogVisible = false;
-
 },
+Getputch()  {this.getConsumerUnit;},
 createPut(post){
    this.posts.push(post);  
     

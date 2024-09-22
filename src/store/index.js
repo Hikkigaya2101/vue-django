@@ -1,9 +1,11 @@
 import { createStore } from "vuex";
 import { postModule } from "./postModule";
+import { consumerList } from "./consumerList";
 export default createStore({
     
     modules:{
-post:postModule
+post:postModule,
+custom:consumerList
     }
 }
 

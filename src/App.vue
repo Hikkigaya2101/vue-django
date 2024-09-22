@@ -98,9 +98,6 @@ HTTP.get('unit').then(response=>this.posts = response.data);
 //HTTP.get('unit').then(response=>(this.setPosts(response.data)));
 HTTP.get('consumer/').then(response=>this.customs = response.data);
 
-
-
-
 //контексное меню
 (function() {
   

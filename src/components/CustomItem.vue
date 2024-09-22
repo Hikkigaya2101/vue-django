@@ -6,11 +6,13 @@
     <div><strong>Дата рождения:</strong>{{ custom.data_birthday }}</div>
     <div><strong>Дата выхода на работу:</strong>{{ custom.data_workday }}</div>   
     <div><strong>Подразделение:</strong>{{ custom.unit }}</div>
-       
+  
         </div>
     </template>
     
     <script>
+import { mapMutations } from 'vuex';
+
     export default{
     props:{
      custom:{
@@ -22,6 +24,11 @@ document.querySelector(' .custom_card').onclick = function() {
     document.querySelector(".custom_card").style.border = "2px solid white";
     document.querySelector(".custom_card").style.color = "white";
 }
+},
+methods:{
+    ...mapMutations({
+        setPosts:'post/setPosts'
+    })
 }
     }
     </script>

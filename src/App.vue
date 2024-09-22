@@ -1,5 +1,6 @@
 <template>
-<h1>Hello World.</h1>
+<h1 style="color:aqua">{{$store.state}}</h1>
+<my-button class="button" @click="POSTS">vuex</my-button>
 <div  class = 'app' >
   <!--div id="app">
     <Tree :items="items"/>
@@ -15,12 +16,7 @@
   </my-dialog>
   
   <!--my-button @click = "CM_CALL()">ВКЛ контексное меню</my-button-->
-<!--div class="wave">
-</div>
-<div class="wave">
-</div>
-<div class="wave">
-</div-->
+
 <custom-list :customs="customs" />
 
 </div>
@@ -29,8 +25,6 @@
 
   </my-dialog>
   <my-button class = 'btn_consumer' @click = "ShowCustomDialog">Создать пользователя</my-button>
-
-
 
   <nav id="context-menu" class="context-menu">
     <ul class="context-menu__items">
@@ -59,6 +53,7 @@ import { CM_CALL } from '@/dll/scripts'
 //import Tree from "@/components/Tree";
 
 import { HTTP } from '@/axios/common';
+import { mapActions, mapGetters } from 'vuex';
 
 
 
@@ -92,14 +87,15 @@ name:'',
 data_birthday:'',
 data_workday:'',
 unit:''}],
-unit_stats:[{age:''}],
   dialogVisible: false,
   dialogCustomVisible:false,
   putch_dialogVisible:false,
   }},
    mounted(){
 HTTP.get('unit').then(response=>this.posts = response.data);
+//HTTP.get('unit').then(response=>(this.setPosts(response.data)));
 HTTP.get('consumer/').then(response=>this.customs = response.data);
+
 
 
 //контексное меню
@@ -273,7 +269,11 @@ HTTP.get('consumer/').then(response=>this.customs = response.data);
   init();
 })();
 },
-   
+computed:{
+...mapActions(['setPosts']),
+...mapGetters(['POSTS'])
+},   
+
 methods:
 {createPost(post){
    this.posts.push(post);  
@@ -362,55 +362,6 @@ position:fixed;
         background-position: 0% 0%;
     }
 }
-
-.wave {
-    background: rgb(255 255 255 / 25%);
-    border-radius: 1000% 1000% 0 0;
-    position: fixed;
-    width: 200%;
-    height: 12em;
-    animation: wave 10s -3s linear infinite;
-    transform: translate3d(0, 0, 0);
-    opacity: 0.8;
-    bottom: 0;
-    left: 0;
-    z-index: -1;
-}
-
-
-.wave:nth-of-type(2) {
-    bottom: -1.25em;
-    animation: wave 18s linear reverse infinite;
-    opacity: 0.8;
-}
-
-.wave:nth-of-type(3) {
-    bottom: -2.5em;
-    animation: wave 20s -1s reverse infinite;
-    opacity: 0.9;
-}
-
-@keyframes wave {
-    2% {
-        transform: translateX(1);
-    }
-
-    25% {
-        transform: translateX(-25%);
-    }
-
-    50% {
-        transform: translateX(-50%);
-    }
-
-    75% {
-        transform: translateX(-25%);
-    }
-
-    100% {
-        transform: translateX(1);
-    }
-}*/
 .new_custom{
   position:static;
   height: auto;

@@ -1,4 +1,5 @@
 <template>
+  {{$store.state.post.id}}
 <div class ="form_list">
     <div class = 'header'>
         <table>

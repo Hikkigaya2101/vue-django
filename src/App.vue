@@ -277,8 +277,6 @@ computed:{
 methods:
 {createPost(post){
    this.posts.push(post);  
-    
-   //HTTP.post('unit/',this.post,{headers: { xsrfHeaderName: "X-CSRFToken"}})
    this.dialogVisible = false;
 
 },

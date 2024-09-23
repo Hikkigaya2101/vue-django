@@ -1,5 +1,6 @@
 <template>
-  {{$store.state.post.id}}
+{{$store.state.custom.customs}}
+{{this.$store.getters.custom}}
 <div class ="form_list">
     <div class = 'header'>
         <table>
@@ -30,7 +31,7 @@
 <h1>Список пользователей</h1>
 
     <div class ='menu_custom' v-if = "customs.length > 0 ">
- <custom-item v-for = "custom in customs"
+ <custom-item v-for = "custom in $store.state.custom.customs"
   :custom="custom"
   :key="custom.id"/>
 
@@ -41,11 +42,17 @@
 
 </div>
 
+
+<div v-if="isLoggedIn">
+<h1>FFDFDf</h1>
+</div>
+
 </template>
 
 <script >
 import CustomItem from "@/components/CustomItem"
 import { get_birthday,get_workday} from "@/dll/statistic"
+import { mapGetters, mapState } from "vuex";
 
 
 export default {
@@ -73,7 +80,12 @@ return get_workday(json_data);
 createCustom(){this.$emit('create',this.custom)}, 
 mounted(){
   this.$emit('create',this.customs)
-  this.custom = {id:'',name : '',data_birthday : '',data_workday:''}}
+  this.custom = {id:'',name : '',data_birthday : '',data_workday:''}},
+  computed:{
+    ...mapGetters(["CUSTOMS"]),
+    ...mapState(['customs']),
+    isLoggedIn(){return this.$store.getters['CUSTOMS']} 
+  }
 }
 </script>
 

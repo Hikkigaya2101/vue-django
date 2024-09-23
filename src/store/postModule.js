@@ -21,10 +21,8 @@ export const postModule = {
     },
     actions:{
         getConsumerUnit(){
-        
             const params = {'search': 27};
             HTTP.get('consumer/', {params})
-        
             },
             setPosts : async(context,posts)=>{
                 let {data} = await HTTP.get('unit');

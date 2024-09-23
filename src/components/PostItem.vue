@@ -1,6 +1,6 @@
 <template>
-<div class="post" @click="getConsumerUnit()">  
-
+<!--div class="post" @click="getUnit()"-->  
+    <div class="post" @click="$store.dispatch('getConsumerUnit',{param:2})">  
     <div>
         <div><strong>Название:</strong>{{ post.name }}</div>
     <div><strong>Тип:</strong>{{ post.type }}</div>
@@ -14,7 +14,9 @@
 </template>
 
 <script>
-import { HTTP } from '@/axios/common';
+import { mapActions } from 'vuex';
+
+
 export default{
 
 props:{
@@ -27,17 +29,14 @@ mounted(){
 document.querySelector('.post').onclick = function() {
 document.querySelector(".post").style.border = "2px solid white";
 document.querySelector(".post").style.color = "white";
-
 }
 },
+computed:{...mapActions({getConsumerUnit:'custom/getConsumerUnit'})
+},
 methods:{
-    getConsumerUnit(){
-        
-const params = {'search': 1};
-HTTP.get('consumer/', {params})
-this.dialogVisible = false;
-
-    },
+    getUnit(){
+        this.getConsumerUnit(28);
+    }
 }
 }
 </script>

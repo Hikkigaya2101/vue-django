@@ -4,23 +4,22 @@ export const consumerList = {
         customs:[],
     }),
     getters:{
-      POSTS: state => {return state.customs} 
+      CUSTOMS: state => {return state.customs} 
     },
     mutations:{
   
-    setCustoms(state,customs){
-        state.customs = customs;
+    setCustoms(state,input_param){
+        const params = {'search': input_param};
+        HTTP.get('consumer/', {params}).then(response=>state.customs = response.data);
     },
 
     },
     actions:{
-        getConsumerUnit(){
-            const params = {'search': 27};
-            HTTP.get('consumer/', {params}).then(response=>this.customs = response.data)
+        //getConsumerUnit(context,param){ context.commit('setCustoms',param)}
+        getConsumerUnit(context,param){
+                context.commit('setCustom',{input_param:param});
 
-            },
-         
-          
+        }
 
     },
     namespaced:true

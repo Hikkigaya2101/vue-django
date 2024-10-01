@@ -1,7 +1,4 @@
 <template>
-<h1 style="color:aqua">{{$store.getters.POSTS}}</h1>
-<my-button class="button" @click="Getputch()">vuex</my-button>
-
 <div  class = 'app' >
   <!--div id="app">
     <Tree :items="items"/>
@@ -11,13 +8,10 @@
   <my-dialog v-model:show="dialogVisible">
       <post-form   @create="createPost"/>
   </my-dialog>
-
   <my-dialog v-model:show="putch_dialogVisible">
       <put-form   @create="createPut"/>
   </my-dialog>
-  
   <!--my-button @click = "CM_CALL()">ВКЛ контексное меню</my-button-->
-
 <custom-list :customs="customs" />
 
 </div>
@@ -54,10 +48,7 @@ import { CM_CALL } from '@/dll/scripts'
 //import Tree from "@/components/Tree";
 
 import { HTTP } from '@/axios/common';
-import { mapActions, mapGetters,mapMutations } from 'vuex';
-
-
-
+import { mapActions, mapGetters } from 'vuex';
 
 export default{
   components:{PostForm,PostList,CustomList,CustomPostForm,PutForm},
@@ -270,10 +261,9 @@ HTTP.get('consumer/').then(response=>this.customs = response.data);
 })();
 },
 computed:{
-...mapActions({getConsumerUnit:'post/getConsumerUnit',message:'post/message'},
-),
+...mapActions({GetUnit:'post/GetUnit'}),
 ...mapGetters(['POSTS']),
-...mapMutations(['setLikes'])
+
 },   
 
 methods:
@@ -281,7 +271,7 @@ methods:
    this.posts.push(post);  
    this.dialogVisible = false;
 },
-Getputch()  {this.getConsumerUnit;},
+
 createPut(post){
    this.posts.push(post);  
     
@@ -296,10 +286,8 @@ createCustom(custom){
 
 ShowCustomDialog(){
 this.dialogCustomVisible = true;
+ 
   },
-onClick (text) {
-  alert(`You clicked ${text}!`)},
-
 removePost(post){
 this.posts = this.posts.filter(p =>p.id !== post.id);
 console.log('FINISH')

@@ -31,18 +31,14 @@ props:{
  }
 },
 methods:{
-    context_menu(){
-        console.log(123);
-    },
+
 ShowDialog(){
   this.$emit('dialogVisible',true)
-  console.log('HZ')
 },
 put_post(){
     HTTP.put('unit/1/',{name:'NIKITA'},{headers: {xsrfHeaderName: "X-CSRFToken"}})
 }
 }
-
 }
 
 </script>

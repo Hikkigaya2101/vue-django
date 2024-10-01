@@ -1,6 +1,5 @@
 <template>
-<!--div class="post" @click="getUnit()"-->  
-    <div class="post" @click="$store.dispatch('getConsumerUnit',{param:2})">  
+    <div class="post" @click="getUnit(post.id)">  
     <div>
         <div><strong>Название:</strong>{{ post.name }}</div>
     <div><strong>Тип:</strong>{{ post.type }}</div>
@@ -16,7 +15,6 @@
 <script>
 import { mapActions } from 'vuex';
 
-
 export default{
 
 props:{
@@ -27,15 +25,15 @@ props:{
 },
 mounted(){
 document.querySelector('.post').onclick = function() {
-document.querySelector(".post").style.border = "2px solid white";
-document.querySelector(".post").style.color = "white";
+this.style.border = "2px solid white";
+this.style.color = "white";
 }
 },
 computed:{...mapActions({getConsumerUnit:'custom/getConsumerUnit'})
 },
 methods:{
-    getUnit(){
-        this.getConsumerUnit(28);
+    getUnit(id_post){
+        this.$store.dispatch("custom/getConsumerUnit",id_post);
     }
 }
 }

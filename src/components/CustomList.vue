@@ -1,6 +1,5 @@
 <template>
-{{$store.state.custom.customs}}
-{{this.$store.getters.custom}}
+
 <div class ="form_list">
     <div class = 'header'>
         <table>
@@ -10,18 +9,18 @@
   <thead>
     <tr>
       <th scope="col">Количество пользователей:</th>
-      <th scope="col">{{this.customs.length}}</th>
+      <th scope="col">{{this.$store.state.custom.customs.length}}</th>
     </tr>
     
   </thead>
   <tbody>
     <tr>
       <th scope="row">Средний возраст:</th>
-    <th  scope="col">{{ get_average_consumer(this.customs) }}</th>
+    <th  scope="col">{{ get_average_consumer($store.state.custom.customs) }}</th>
     </tr>
     <tr>
       <th scope="row">Средний стаж работы:</th>
-      <th scope="row">{{get_averworkday_consumer(this.customs)}}</th>
+      <th scope="row">{{get_averworkday_consumer($store.state.custom.customs)}}</th>
 
       <!--button @click="get_average_consumer">12</button-->
     </tr>
@@ -42,10 +41,6 @@
 
 </div>
 
-
-<div v-if="isLoggedIn">
-<h1>FFDFDf</h1>
-</div>
 
 </template>
 
@@ -84,7 +79,7 @@ mounted(){
   computed:{
     ...mapGetters(["CUSTOMS"]),
     ...mapState(['customs']),
-    isLoggedIn(){return this.$store.getters['CUSTOMS']} 
+
   }
 }
 </script>

@@ -2,38 +2,17 @@ import {HTTP} from "@/axios/common"
 export const postModule = {
     state:() =>({
         posts:[],
-        customs:[],
-        limit:5,
+
     }),
     getters:{
-      POSTS: state => {return state.limit} 
+      POSTS: state => {return state.posts} 
     },
     mutations:{
-    setPosts: (state,posts)=>{
-        state.posts = posts;
-    },
-    setCustoms(state,customs){
-        state.customs = customs;
-    },
-    setLikes(state){
-         state.limit+=2;
-    },
+    setPosts: (state)=>{
+        HTTP.get('unit_type',).then(response=>state.posts = response.data);
+    }
     },
     actions:{
-        getConsumerUnit(){
-            const params = {'search': 27};
-            HTTP.get('consumer/', {params})
-            },
-            setPosts : async(context,posts)=>{
-                let {data} = await HTTP.get('unit');
-            if (data.status == 200) {
-                context.commit('setPosts', posts);
-              }
-            },
-            message(){
-                console.log('gavno');
-            }
-
-    },
+        GetUnit(context){context.commit('setPosts');}},
     namespaced:true
 }

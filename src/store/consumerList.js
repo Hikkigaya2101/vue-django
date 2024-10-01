@@ -8,18 +8,15 @@ export const consumerList = {
     },
     mutations:{
   
-    setCustoms(state,input_param){
-        const params = {'search': input_param};
+    setCustoms(state,id){
+        const params = {'search': id};
         HTTP.get('consumer/', {params}).then(response=>state.customs = response.data);
     },
 
     },
     actions:{
         //getConsumerUnit(context,param){ context.commit('setCustoms',param)}
-        getConsumerUnit(context,param){
-                context.commit('setCustom',{input_param:param});
-
-        }
+        getConsumerUnit(context,id){context.commit('setCustoms',id); }
 
     },
     namespaced:true

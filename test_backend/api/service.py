@@ -1,2 +1,5 @@
+from .models import Unit
 def gav():
-    return 'hui'
+    units = Unit.objects.all()
+
+    return print(units)

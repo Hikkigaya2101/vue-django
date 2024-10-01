@@ -10,12 +10,12 @@ from .service import gav
 
 class UnitViewSet(viewsets.ModelViewSet):
     queryset = Unit.objects.all()
-    # serializer_class = UnitPostSeriliazer
-
+    serializer_class = UnitPostSeriliazer
+    #serializer_class = TreeSerializer
     def get_serializer_class(self):
-        if self.request.method == 'GET':
-            return UnitGetSeriliazer
-        return UnitPostSeriliazer
+         if self.request.method == 'GET':
+             return UnitGetSeriliazer
+         return UnitPostSeriliazer
 
     @action(methods=['GET'], detail=False)
     def get_tree(self,request, *args, **kwargs):
@@ -29,5 +29,9 @@ class ConsumerViewSet(viewsets.ModelViewSet):
     serializer_class = ConsumerPostSeriliazer
     filter_backends = [filters.SearchFilter]
     search_fields = ['unit__id']
+
+class UnitTypeViewSet(viewsets.ModelViewSet):
+    queryset = UnitType.objects.all()
+    serializer_class = UnitTypeSeriliazer
 
 

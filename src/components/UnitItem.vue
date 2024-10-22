@@ -1,11 +1,11 @@
 <template>
-    <div class="post" @click="getUnit(post.id)">  
+    <div class="unit" @click="getUnit(unit.id)">  
     <div>
-        <div><strong>Название:</strong>{{ post.name }}</div>
-    <div><strong>Тип:</strong>{{ post.type }}</div>
+        <div><strong>Название:</strong>{{ unit.name }}</div>
+    <div><strong>Тип:</strong>{{ unit.type }}</div>
    
     </div>
-    <div class="post__btns">
+    <div class="unit__btns">
         <!--my-button @click="$emit('remove',post)">Удалить</my-button-->
     </div>
     </div>
@@ -18,22 +18,22 @@ import { mapActions } from 'vuex';
 export default{
 
 props:{
- post:{
+ unit:{
   type: Array,
   required:true,
  }
 },
 mounted(){
-document.querySelector('.post').onclick = function() {
-this.style.border = "2px solid white";
-this.style.color = "white";
-}
+// // document.querySelector('.unit').onclick = function() {
+// // this.style.border = "2px solid white";
+// // this.style.color = "white";
+// }
 },
-computed:{...mapActions({getConsumerUnit:'custom/getConsumerUnit'})
+computed:{...mapActions({getConsumerUnit:'consumer/getConsumerUnit'})
 },
 methods:{
-    getUnit(id_post){
-        this.$store.dispatch("custom/getConsumerUnit",id_post);
+    getUnit(id_unit){
+        this.$store.dispatch("consumer/getConsumerUnit",id_unit);
     }
 }
 }
@@ -41,12 +41,12 @@ methods:{
 
 <style scoped>
 
-.post{
+.unit{
 padding:10px;
-border: 2px solid teal;
+border: 2px solid rgba(21, 112, 113, 0.533);
 margin-top: 15px;
 }
-.post:hover{
+.unit:hover{
     border: 2px solid rgba(221, 223, 232, 0.5);
     background: linear-gradient(135deg,
     (rgba(255,255,255,0.05))
@@ -55,6 +55,9 @@ margin-top: 15px;
 backdrop-filter: blur(1px);
 box-shadow: 0 8px 24px rgba(11, 183, 189, 0.5);    
 }
-
+.unit:focus{
+border: 2px solid white;
+color: aliceblue;
+}
 
 </style>

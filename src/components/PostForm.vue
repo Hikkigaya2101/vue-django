@@ -1,30 +1,33 @@
 <template>
     <div class = 'add_form' >
-        {{ $store.state.post.posts}}
-        {{parser_type_unit}}
+    
+
     <form @submit.prevent>
         <h4>Добавить подразделение</h4>    
-         <!--my-select   :options = "$store.state.post.posts" placeholder="Тип"/-->
-         <my-input v-model="post.type" placeholder="Тип"/> 
-        <my-input v-model="post.name" placeholder="Название"/>
-          <my-input  v-model = "post.parent"  placeholder="Подчиняется"/>
-        <my-button  style ='align-self: flex-end' @click='emitPost' >Создать</my-button>
+         <!-- <my-select  v-model="unit.type" :options = "parser_type_unit" placeholder="Тип"></my-select> -->
+         <my-input v-model="unit.type" placeholder="Тип"/> 
+        <my-input v-model="unit.name" placeholder="Название"/>
+          <my-input  v-model = "unit.parent"  placeholder="Подчиняется"/>
+        <my-button  style ='align-self: flex-end' @click='emitUnit' >Создать</my-button>
         </form>
     </div>
 </template>
 
 <style scoped>
+.add_form{
+    color: aqua;
+}
 </style >
 
 <script>
 import {  mapState } from "vuex";
 import { HTTP } from '@/axios/common';
-//import MySelect from './UI/MySelect.vue';
+// import MySelect from './UI/MySelect.vue';
 export default {
-    //components:{MySelect},
+    // components:{MySelect},
     data(){
        return{
-        post:{id:'',
+        unit:{id:'',
         type:'',
            name:'',
            parent:''},
@@ -32,16 +35,17 @@ export default {
     }
 },
     methods:{
-emitPost(){this.post.id= Date.now();
-this.$emit('create',this.post);
-HTTP.post('unit/',this.post,{headers: { xsrfHeaderName: "X-CSRFToken"}})
-this.dialogVisible = false;
-console.log(this.post)}},
+emitUnit(){this.unit.id= Date.now();
+this.$emit('create',this.unit);
+HTTP.post('unit/',this.unit,{headers: { xsrfHeaderName: "X-CSRFToken"}})
+this.dialogVisible = false;}},
 mounted(){
 HTTP.get('unit_type').then(response=>this.parser_type_unit = response.data);
+console.log(this.parser_type_unit);
+
 },
     computed:{
-        ...mapState(['POSTS']),
+        ...mapState(['UNITS']),
     }
 }
     

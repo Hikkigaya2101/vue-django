@@ -1,25 +1,31 @@
 <template>
-    <select v-model = "post"  @change="changeOption">
+    <select v-model = "SelectedType"  
+    @change="changeOption">
        <options disabled value = ''>Выберите из списка</options>
-<option v-for = "post in $store.state.post.posts" :key = "post.id" :value = "post.name"></option>
+<option
+ v-for = "type in options" 
+  :key = "type.id" 
+  :value = "type.name">
+</option>
     </select>
     </template>
   
-  <script>
+  <script >
   import { mapState } from 'vuex';
   export default {
     name: 'my-select',
     props: {
-      modelValue: {name:''},
+      
       options:{type:Array}
     },
+    SelectedType:'',
     methods: {
       changeOption(event) {
-        this.$emit('update:posts', event)
+        this.$emit('update:units', event)
       }
     },
     computed:{
-      ...mapState(['post'])  
+      ...mapState(['unit'])  
     }
   }
   </script>

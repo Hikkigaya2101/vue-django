@@ -1,7 +1,7 @@
 
 services:
   vue:
-    container_name: vue-api
+    container_name: vue-test
     build:
       context: .
       dockerfile: Dockerfile
